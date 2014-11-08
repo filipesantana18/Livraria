@@ -7,6 +7,8 @@
 package livraria;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
@@ -156,7 +158,8 @@ catch(SQLException e){
     status=e.getMessage();
     }
 }
-    public void excluir(){
+    public boolean excluir(){
+        boolean retorno;
 String Q="delete from cliente";
 Q+=" where cod_cliente="+cod_cliente;
 Connection cn=conexao.getConnection();
@@ -164,10 +167,13 @@ try{
      Statement st=cn.createStatement();
     st.executeUpdate(Q);
      status="Excluido com sucesso!";
+     retorno = true;
 }
 catch(SQLException e){
     status=e.getMessage();
+    retorno = false;
 }
+return retorno;
 }
     public void consultar(){
     String Q="select * from";
@@ -195,7 +201,33 @@ catch(SQLException e){
     catch(SQLException e){
         status=e.getMessage();
     }
-}
-    
+}    
+      public List<Cliente> listarTodos() {  
+     String sql="select * from cliente";  
+    List<Cliente> listAll = new ArrayList<Cliente>();  
+    Cliente n;        
+    try {  
+        Connection con = conexao.getConnection();  
+        Statement stm = con.createStatement();  
+          ResultSet rs = stm.executeQuery(sql);  
+       while (rs.next()) {  
+              n = new Cliente();  
+            n.setNome(rs.getString("Nome"));  
+            n.setTelefone(Integer.parseInt(rs.getString("Telefone")));  
+            listAll.add(n);  
+            
+              
+        }
+        con.close();  
+        rs.close();  
+        stm.close();  
+          
+    } catch (Exception e) {  
+        System.out.println("Listando... "+e.getMessage());  
+    }  
+  
+    return listAll;  
+  
+}    
 }
     
