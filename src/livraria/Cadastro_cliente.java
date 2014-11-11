@@ -10,11 +10,13 @@
  */
 package livraria;
 
+import com.sun.corba.se.impl.util.Utility;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
+import java.util.*;
+import javax.swing.ListSelectionModel;
+import sun.misc.Cleaner;
 
 /**
  *
@@ -69,6 +71,11 @@ public class Cadastro_cliente extends javax.swing.JFrame {
         tblCliente = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,6 +162,11 @@ public class Cadastro_cliente extends javax.swing.JFrame {
             }
         });
         tblCliente.setName("tblCliente"); // NOI18N
+        tblCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCliente);
         tblCliente.getAccessibleContext().setAccessibleName("tblCliente");
 
@@ -280,18 +292,24 @@ public class Cadastro_cliente extends javax.swing.JFrame {
                             .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -330,32 +348,27 @@ public class Cadastro_cliente extends javax.swing.JFrame {
         A.setTelefone(Integer.parseInt(txtTelefone.getText()));
         A.setEndereco(txtEndereco.getText());
 
-        A.alterar();
+        A.alterar(); 
         lstatus.setText(A.getStatus());
 
 }//GEN-LAST:event_btnalterarActionPerformed
     private void AtualizarTabela() {
-        DefaultTableModel model = (DefaultTableModel) tblCliente.getModel();
-        model.setRowCount(0);
-        tblCliente.setRowSelectionAllowed(true);          
-        Cliente d = new Cliente();
-        List<Cliente> l = d.listarTodos();
-        for (Cliente c : l) {
-            model.addRow(new Object[]{c.getNome(), c.getTelefone()});
-        }
-        lstatus.setText("Excluído");
+        String[] colunas = new String[] { "Nome", "Telefone" };          
+        Cliente c = new Cliente();
+        TabelaHelper modelo = new TabelaHelper(c.listarTodos(), colunas);
+        tblCliente.setModel(modelo);  
+        tblCliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-//        conexao.getConnection();
-//        Cliente A = new Cliente();
-//        A.setCod_cliente(Integer.parseInt(txtCodigo.getText()));
-//        if (A.excluir()) {
-//            lstatus.setText("Excluido com sucesso!!!");
-//            
-//        } else {
-//            lstatus.setText("Problemas na exclusão!!!");
-//        }
-        AtualizarTabela();
+        conexao.getConnection();
+        Cliente A = new Cliente();
+        A.setCod_cliente(Integer.parseInt(txtCodigo.getText()));
+        if (A.excluir()) {
+            lstatus.setText("Excluido com sucesso!!!");
+            
+        } else {
+            lstatus.setText("Problemas na exclusão!!!");
+        }       
 }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
@@ -384,14 +397,35 @@ public class Cadastro_cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeActionPerformed
 
+    private void tblClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteMouseClicked
+        int i = tblCliente.getSelectedRow();  
+        String b = (String) tblCliente.getValueAt(i, 0);
+        Cliente A = new Cliente();
+        A.consultar2(b);
+        txtCodigo.setText(Integer.toString(A.getCod_cliente()));
+        txtNome.setText(A.getNome());
+        txtCpf.setText(Integer.toString(A.getCpf()));
+        txtCidade.setText(A.getCidade());
+        txtBairro.setText(A.getBairro());
+        txtEstado.setText(A.getEstado());
+        txtRg.setText(Integer.toString(A.getRg()));
+        txtCep.setText(Integer.toString(A.getCep()));
+        txtTelefone.setText(Integer.toString(A.getTelefone()));
+        txtEndereco.setText(A.getEndereco());
+        lstatus.setText(A.getStatus());
+    }//GEN-LAST:event_tblClienteMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+       AtualizarTabela();
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    public static void main(String args[]) {        
+        java.awt.EventQueue.invokeLater(new Runnable() {            
             public void run() {
                 new Cadastro_cliente().setVisible(true);
-
             }
         });
     }

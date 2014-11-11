@@ -119,14 +119,13 @@ private String status;
     Q+=","+cpf+",'"+cidade+"'" ;
     Q+=",'"+bairro+"','"+estado+"'" ;
     Q+=","+rg+","+cep+"" ;
-    Q+=","+telefone+",'"+endereco+"'" ;
-    
+    Q+=","+telefone+",'"+endereco+"'" ;    
     Q+=")";
     Connection cn=conexao.getConnection();
      System.out.println(Q);
 try{
     Statement st=cn.createStatement();
-    st.executeUpdate(Q);
+    st.execute(Q);
     status="Incluido com sucesso!";
 }
 catch(SQLException e){
@@ -202,21 +201,51 @@ return retorno;
         status=e.getMessage();
     }
 }    
-      public List<Cliente> listarTodos() {  
+    public void consultar2(String nome){
+    String Q="select * from";
+    Q+=" cliente where nome='";
+    Q+=nome +"'";
+        System.out.println(Q);
+    Connection cn=conexao.getConnection();
+
+    try{
+     Statement st=cn.createStatement();
+    ResultSet rs =st.executeQuery(Q);
+    if(rs.next()){
+        cod_cliente = rs.getInt("cod_cliente");
+        Nome=rs.getString("nome");
+        cpf=rs.getInt("cpf");
+        cidade=rs.getString("cidade");
+        bairro=rs.getString("Bairro");
+        estado=rs.getString("estado");
+        rg=rs.getInt("RG");
+        cep=rs.getInt("CEP");
+        telefone=rs.getInt("Telefone");
+        endereco=rs.getString("Endereco");
+        status="localizado com sucesso";
+         }else{
+        status="nao existe";}
+        }
+    catch(SQLException e){
+        status=e.getMessage();
+    }
+}
+    
+    
+    
+      public ArrayList listarTodos() {  
      String sql="select * from cliente";  
-    List<Cliente> listAll = new ArrayList<Cliente>();  
-    Cliente n;        
+    ArrayList listAll = new ArrayList();  
+       
     try {  
         Connection con = conexao.getConnection();  
         Statement stm = con.createStatement();  
-          ResultSet rs = stm.executeQuery(sql);  
+        ResultSet rs = stm.executeQuery(sql);  
        while (rs.next()) {  
-              n = new Cliente();  
-            n.setNome(rs.getString("Nome"));  
-            n.setTelefone(Integer.parseInt(rs.getString("Telefone")));  
-            listAll.add(n);  
-            
-              
+        listAll.add(new String[] {rs.getString("Nome"),
+                                  rs.getString("Telefone"),
+                                  rs.getString("cod_cliente") 
+                                 }); 
         }
         con.close();  
         rs.close();  

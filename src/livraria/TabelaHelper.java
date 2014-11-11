@@ -10,12 +10,17 @@ package livraria;
  * @author Filipe Santana
  */
 import java.util.*;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.table.*;
 
 public class TabelaHelper extends AbstractTableModel {
 
     private ArrayList linhas = null;
     private String[] colunas = null;
+
+    public TabelaHelper(ArrayList dados, String[] colunas) {
+        setLinhas(dados);
+        setColunas(colunas);
+    }
 
     public String[] getColunas() {
         return colunas;
@@ -23,6 +28,11 @@ public class TabelaHelper extends AbstractTableModel {
 
     public ArrayList getLinhas() {
         return linhas;
+    }
+         
+    @Override
+    public String getColumnName(int num){
+        return this.colunas[num];
     }
 
     public void setColunas(String[] strings) {
@@ -47,10 +57,11 @@ public class TabelaHelper extends AbstractTableModel {
     public int getRowCount() {
         return getLinhas().size();
     }
-
-    public void SimpleTableModel(ArrayList dados, String[] colunas) {
-        setLinhas(dados);
-        setColunas(colunas);
+    
+    public Object getValueLinha(int rowIndex) {
+        // Obtem a linha, que é uma String []  
+        String[] linha = (String[]) getLinhas().get(rowIndex);
+        // Retorna o objeto que esta na coluna  
+        return linha[3];
     }
-
 }
