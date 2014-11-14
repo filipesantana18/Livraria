@@ -5,6 +5,7 @@
 
 package livraria;
 import java.sql.*;
+import java.util.ArrayList;
 /**
  *
  * @author aluno
@@ -234,4 +235,31 @@ public void busca(){
         status=e.getMessage();
     }
 }
+    
+     public ArrayList listarTodos() {  
+     String sql="select * from produtos";  
+    ArrayList listAll = new ArrayList();  
+       
+    try {  
+        Connection con = conexao.getConnection();  
+        Statement stm = con.createStatement();  
+        ResultSet rs = stm.executeQuery(sql);  
+       while (rs.next()) {  
+        listAll.add(new String[] {rs.getString("Codigo"),
+                                  rs.getString("Nome"),
+                                  rs.getString("Preço") 
+                                 }); 
+        }
+        con.close();  
+        rs.close();  
+        stm.close();  
+          
+    } catch (Exception e) {  
+        System.out.println("Listando... "+e.getMessage());  
+    }  
+  
+    return listAll;  
+  
+} 
+    
 }

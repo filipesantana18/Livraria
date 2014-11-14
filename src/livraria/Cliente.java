@@ -230,10 +230,8 @@ return retorno;
         status=e.getMessage();
     }
 }
-    
-    
-    
-      public ArrayList listarTodos() {  
+        
+    public ArrayList listarTodos() {  
      String sql="select * from cliente";  
     ArrayList listAll = new ArrayList();  
        
