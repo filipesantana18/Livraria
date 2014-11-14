@@ -228,6 +228,7 @@ return retorno;
         }
     catch(SQLException e){
         status=e.getMessage();
+        
     }
 }
     
