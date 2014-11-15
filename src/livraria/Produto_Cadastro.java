@@ -11,6 +11,8 @@
 
 package livraria;
 
+import javax.swing.ListSelectionModel;
+
 /**
  *
  * @author aluno
@@ -63,6 +65,9 @@ public class Produto_Cadastro extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 auteditora(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -353,18 +358,30 @@ public class Produto_Cadastro extends javax.swing.JFrame {
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoActionPerformed
-
+     private void AtualizarTabela() {
+        String[] colunas = new String[] {"Codigo", "Nome", "Preço" };          
+        Produto c = new Produto();
+        TabelaHelper modelo = new TabelaHelper(c.listarTodos(), colunas);
+        tblProduto.setModel(modelo);  
+        tblProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
     private void tblProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutoMouseClicked
         int i = tblProduto.getSelectedRow();
-        String b = (String) tblProduto.getValueAt(i, 0);
-        Cliente A = new Cliente();
-        A.consultar2(b);
-        txtCodigo.setText(Integer.toString(A.getCod_cliente()));
+        int b = Integer.parseInt((String) tblProduto.getValueAt(i, 0));
+        Produto A = new Produto();
+        A.busca2(b);
+        txtCodigo.setText(Integer.toString(A.getCod_produto()));
         txtNome.setText(A.getNome());
-       // txtPreco.setText(A.getPreço());
-       
+        cboeditora.setSelectedItem(A.getEditora());
+        txtPreco.setText(Double.toString(A.getPreco()));
+        txtCronica.setText(A.getCronica());
+        quant.setText(Integer.toString(A.getEstoque_min()));
         lstatus.setText(A.getStatus());
     }//GEN-LAST:event_tblProdutoMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        AtualizarTabela();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
     * @param args the command line arguments

@@ -236,8 +236,30 @@ public void busca(){
     }
 }
     
+   public void busca2(int codigo){
+     String Q="select p.nome,p.preco,p.cronica,p.estoque_min,e.nome_editora from produto p,";
+     Q+="editora e where cod_produto="+codigo+" and p.cod_editora=e.cod_editora";
+        Connection cn=conexao.getConnection();
+        try{
+            Statement st=cn.createStatement();
+    ResultSet rs =st.executeQuery(Q);
+    if(rs.next()){
+        Nome=rs.getString("p.nome");
+        editora=rs.getString("e.nome_editora");
+        preco=rs.getFloat("p.preco");
+        cronica=rs.getString("p.Cronica");
+        estoque_min=rs.getInt("p.estoque_min");
+        status="localizado com sucesso";
+         }else{
+        status="nao existe";
+    }
+        }
+        catch(SQLException e){
+        status=e.getMessage();}
+}
+    
      public ArrayList listarTodos() {  
-     String sql="select * from produtos";  
+     String sql="select * from produto";  
     ArrayList listAll = new ArrayList();  
        
     try {  
@@ -245,9 +267,9 @@ public void busca(){
         Statement stm = con.createStatement();  
         ResultSet rs = stm.executeQuery(sql);  
        while (rs.next()) {  
-        listAll.add(new String[] {rs.getString("Codigo"),
-                                  rs.getString("Nome"),
-                                  rs.getString("Preço") 
+        listAll.add(new String[] {rs.getString("cod_produto"),
+                                  rs.getString("nome"),
+                                  rs.getString("preco") 
                                  }); 
         }
         con.close();  
