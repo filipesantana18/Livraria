@@ -189,6 +189,7 @@ catch(SQLException e){
      Statement st=cn.createStatement();
     ResultSet rs =st.executeQuery(Q);
     if(rs.next()){
+        cod_editora = rs.getInt("cod_editora");
         Nome=rs.getString("nome_editora");
         Cnpj=rs.getInt("CNPJ");
         endereco=rs.getString("endereco");
@@ -214,9 +215,9 @@ catch(SQLException e){
         Statement stm = con.createStatement();  
         ResultSet rs = stm.executeQuery(sql);  
        while (rs.next()) {  
-        listAll.add(new String[] {rs.getString("nome"),
-                                  rs.getString("telefone"),
-                                  rs.getString("cod_cliente") 
+        listAll.add(new String[] {rs.getString("cod_editora"),
+                                  rs.getString("nome_editora"),
+                                  rs.getString("telefone")                                  
                                  }); 
         }
         con.close();  
