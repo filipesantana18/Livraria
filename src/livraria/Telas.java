@@ -20,4 +20,5 @@ public class Telas {
     public static incluir_compra TelaIncluirCompra;
     public static consulta_editora TelaConsultaEditora;
     public static consultar_clientes TelaConsultaCliente;
+    public static pedido TelaPedido;
 }
