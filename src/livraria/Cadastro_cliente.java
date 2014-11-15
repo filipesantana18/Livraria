@@ -358,6 +358,8 @@ public class Cadastro_cliente extends javax.swing.JFrame {
 
         A.incluir();
         lstatus.setText(A.getStatus());
+        
+        AtualizarTabela();
 
 }//GEN-LAST:event_btnIncluirActionPerformed
 
@@ -376,7 +378,7 @@ public class Cadastro_cliente extends javax.swing.JFrame {
 
         A.alterar();
         lstatus.setText(A.getStatus());
-
+AtualizarTabela();
 }//GEN-LAST:event_btnalterarActionPerformed
     private void AtualizarTabela() {
         String[] colunas = new String[]{"Nome", "Telefone"};
@@ -391,6 +393,7 @@ public class Cadastro_cliente extends javax.swing.JFrame {
         A.setCod_cliente(Integer.parseInt(txtCodigo.getText()));
         if (A.excluir()) {
             lstatus.setText("Excluido com sucesso!!!");
+            AtualizarTabela();
 
         } else {
             lstatus.setText("Problemas na exclusão!!!");
@@ -411,6 +414,7 @@ public class Cadastro_cliente extends javax.swing.JFrame {
         txtTelefone.setText(Integer.toString(A.getTelefone()));
         txtEndereco.setText(A.getEndereco());
         lstatus.setText(A.getStatus());
+        AtualizarTabela();
 
 }//GEN-LAST:event_btnConsultarActionPerformed
 
