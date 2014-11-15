@@ -241,9 +241,8 @@ return retorno;
         Statement stm = con.createStatement();  
         ResultSet rs = stm.executeQuery(sql);  
        while (rs.next()) {  
-        listAll.add(new String[] {rs.getString("Nome"),
-                                  rs.getString("Telefone"),
-                                  rs.getString("cod_cliente") 
+        listAll.add(new String[] {rs.getString("nome"),
+                                  rs.getString("Telefone")                                  
                                  }); 
         }
         con.close();  

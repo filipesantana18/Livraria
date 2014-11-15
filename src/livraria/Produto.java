@@ -156,7 +156,7 @@ catch(SQLException e){
     }
 }
 
-public void excluir(){
+    public void excluir(){
 String Q="delete from produto";
 Q+=" where cod_produto="+cod_produto;
 Connection cn=conexao.getConnection();
@@ -194,7 +194,7 @@ catch(SQLException e){
     }
 }
 
-public void busca(){
+    public void busca(){
      String Q="select p.nome,p.preco,p.cronica,p.estoque_min,e.nome_editora from produto p,";
      Q+="editora e where cod_produto="+cod_produto+" and p.cod_editora=e.cod_editora";
         Connection cn=conexao.getConnection();
@@ -237,13 +237,14 @@ public void busca(){
 }
     
    public void busca2(int codigo){
-     String Q="select p.nome,p.preco,p.cronica,p.estoque_min,e.nome_editora from produto p,";
-     Q+="editora e where cod_produto="+codigo+" and p.cod_editora=e.cod_editora";
+     String Q="select p.cod_produto,p.nome,p.preco,p.cronica,p.estoque_min,e.nome_editora from produto p,";
+     Q+="editora e where p.cod_produto="+codigo+" and p.cod_editora=e.cod_editora";
         Connection cn=conexao.getConnection();
         try{
             Statement st=cn.createStatement();
     ResultSet rs =st.executeQuery(Q);
     if(rs.next()){
+        cod_produto= rs.getInt("p.cod_produto");
         Nome=rs.getString("p.nome");
         editora=rs.getString("e.nome_editora");
         preco=rs.getFloat("p.preco");

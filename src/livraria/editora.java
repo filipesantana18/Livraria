@@ -7,6 +7,7 @@ package livraria;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 
 
 
@@ -178,4 +179,55 @@ catch(SQLException e){
     }
 }
 
+     public void busca2(int codigo){
+    String Q="select * from";
+    Q+=" editora where cod_editora=";
+    Q+=codigo;
+    Connection cn=conexao.getConnection();
+    System.out.println(Q);
+    try{
+     Statement st=cn.createStatement();
+    ResultSet rs =st.executeQuery(Q);
+    if(rs.next()){
+        Nome=rs.getString("nome_editora");
+        Cnpj=rs.getInt("CNPJ");
+        endereco=rs.getString("endereco");
+        telefone=rs.getInt("telefone");
+        bairro=rs.getString("Bairro");
+        estado=rs.getString("Estado");
+        cidade=rs.getString("cidade");
+        status="localizado com sucesso";
+         }else{
+        status="nao existe";}
+        }
+    catch(SQLException e){
+        status=e.getMessage();
+    }
+}
+     
+      public ArrayList listarTodos() {  
+     String sql="select * from editora";  
+    ArrayList listAll = new ArrayList();  
+       
+    try {  
+        Connection con = conexao.getConnection();  
+        Statement stm = con.createStatement();  
+        ResultSet rs = stm.executeQuery(sql);  
+       while (rs.next()) {  
+        listAll.add(new String[] {rs.getString("nome"),
+                                  rs.getString("telefone"),
+                                  rs.getString("cod_cliente") 
+                                 }); 
+        }
+        con.close();  
+        rs.close();  
+        stm.close();  
+          
+    } catch (Exception e) {  
+        System.out.println("Listando... "+e.getMessage());  
+    }  
+  
+    return listAll;  
+  
+}    
 }
