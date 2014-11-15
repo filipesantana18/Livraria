@@ -289,6 +289,7 @@ public class Produto_Cadastro extends javax.swing.JFrame {
         txtCronica.setText(A.getCronica());
         quant.setText(Integer.toString(A.getEstoque_min()));
         lstatus.setText(A.getStatus());
+         AtualizarTabela();
 }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -297,6 +298,7 @@ public class Produto_Cadastro extends javax.swing.JFrame {
         A.setCod_produto(Integer.parseInt(txtCodigo.getText()));
         A.excluir();
         lstatus.setText(A.getStatus());
+         AtualizarTabela();
 }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -315,6 +317,7 @@ public class Produto_Cadastro extends javax.swing.JFrame {
         A.incluir2();
         A.alterar();
         lstatus.setText(A.getStatus());
+         AtualizarTabela();
 }//GEN-LAST:event_btnalterarActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
@@ -331,6 +334,7 @@ public class Produto_Cadastro extends javax.swing.JFrame {
         A.incluir2();
         A.incluir();
         lstatus.setText(A.getStatus());
+         AtualizarTabela();
 }//GEN-LAST:event_btnIncluirActionPerformed
 
     

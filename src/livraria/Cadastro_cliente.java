@@ -398,6 +398,7 @@ AtualizarTabela();
         } else {
             lstatus.setText("Problemas na exclusão!!!");
         }
+         AtualizarTabela();
 }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed

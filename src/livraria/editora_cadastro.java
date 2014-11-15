@@ -286,6 +286,7 @@ public class editora_cadastro extends javax.swing.JFrame {
         A.setEndereco(txtEndereco.getText());
         A.incluir();
         lstatus.setText(A.getStatus());
+         AtualizarTabela();
 }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnalterarActionPerformed
@@ -300,6 +301,7 @@ public class editora_cadastro extends javax.swing.JFrame {
         A.setEndereco(txtEndereco.getText());
         A.alterar();
         lstatus.setText(A.getStatus());
+         AtualizarTabela();
 }//GEN-LAST:event_btnalterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -314,6 +316,7 @@ public class editora_cadastro extends javax.swing.JFrame {
         txtEstado.setText("");
         txtTelefone.setText("");
         txtEndereco.setText("");
+         AtualizarTabela();
 }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
@@ -328,6 +331,7 @@ public class editora_cadastro extends javax.swing.JFrame {
         txtTelefone.setText(Integer.toString(A.getTelefone()));
         txtEndereco.setText(A.getEndereco());
         lstatus.setText(A.getStatus());
+         AtualizarTabela();
 }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed

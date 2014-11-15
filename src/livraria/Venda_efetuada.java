@@ -232,26 +232,26 @@ int item=0;
 //    int i=c.i;
 //    int j=0;
 //    while((j<=i)&&(c.vet[j]!=null)){
-//  //  System.out.println(j);
+//      System.out.println(j);
 //    cboNome_cliente.addItem(c.vet[j]);
-//    j++;
+ //      j++;
     }//GEN-LAST:event_ativarnomecliente
     
     
     
 private void ativarnomeproduto(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_ativarnomeproduto
-// DefaultComboBoxModel listModel=new DefaultComboBoxModel();
-//    cboNome_livro.setModel(listModel);
-//    if (listModel.getSize()==0){
-//    Venda c=new Venda();
-//c.autonomepro();
-//int i=c.i;
-//int j=0;
-//while((j<=i)&&(c.vet[j]!=null)){
-// //   System.out.println(j);
-//    cboNome_livro.addItem(c.vet[j]);
-//    j++;
-//    }}
+ //DefaultComboBoxModel listModel=new DefaultComboBoxModel();
+   // cboNome_livro.setModel(listModel);
+ //   if (listModel.getSize()==0){
+   // Venda c=new Venda();
+  //  c.autonomepro();
+   // int i=c.i;
+//    int j=0;
+  //  while((j<=i)&&(c.vet[j]!=null)){
+    //  System.out.println(j);
+    //   cboNome_livro.addItem(c.vet[j]);
+    // j++;
+     //  }}
 }//GEN-LAST:event_ativarnomeproduto
 
 private void incluir_vendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incluir_vendaActionPerformed
@@ -313,7 +313,7 @@ private void btnFechar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 	try {
 
             comm=cn.createStatement();
-          //  comm = cn.createStatement();
+            comm = cn.createStatement();
             resultSet = comm.executeQuery(query);
             exibeDados(resultSet);
             comm.close();
